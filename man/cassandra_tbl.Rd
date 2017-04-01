@@ -24,6 +24,8 @@ spark_write_cassandra_table(spk_tbl, cass_keyspace, cass_tbl)
 
 \item{select_cols}{A server-side select clause}
 
+\item{cache_table}{Do we load the table into memory?}
+
 \item{spk_tbl}{A handle to a hive table to write}
 }
 \description{

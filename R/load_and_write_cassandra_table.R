@@ -9,6 +9,7 @@
 #' @param spk_tbl A handle to a hive table to write
 #' @param partition_filter A server-side filter clause
 #' @param select_cols A server-side select clause
+#' @param cache_table Do we load the table into memory?
 NULL
 
 #' @name cassandra_tbl
