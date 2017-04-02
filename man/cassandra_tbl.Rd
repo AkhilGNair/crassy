@@ -6,13 +6,13 @@
 \alias{spark_write_cassandra_table}
 \title{Load and write Cassandra tables}
 \usage{
-spark_load_cassandra_table(session, cass_keyspace, cass_tbl, spk_tbl_name,
+spark_load_cassandra_table(sc, cass_keyspace, cass_tbl, spk_tbl_name,
   partition_filter = FALSE, select_cols = FALSE, cache_table = FALSE)
 
 spark_write_cassandra_table(spk_tbl, cass_keyspace, cass_tbl)
 }
 \arguments{
-\item{session}{The spark session}
+\item{sc}{The spark context}
 
 \item{cass_keyspace}{A Cassandra keyspace}
 
