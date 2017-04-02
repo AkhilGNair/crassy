@@ -22,7 +22,7 @@ test_that("read existing Cassandra data", {
   expect_true("cassandra" %in% (cdf %>% collect() %>% `[[`("role")))
 })
 
-test_that("write Spark DataFrame into avro", {
+test_that("write Spark DataFrame into Cassandra", {
   skip_on_cran()
 
   tbl_iris = copy_to(sc, iris, overwrite = TRUE)
