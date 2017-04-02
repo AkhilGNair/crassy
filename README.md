@@ -1,9 +1,9 @@
 # crassy
 A `Sparklyr-Cassandra-Connector` using the Datastax `Spark-Cassandra-Connector`.
 
-This purpose of this library is to allow existing data in Cassandra to be analysed in R. Therefore, the only available operations to this extension are to  
+This purpose of this library is to allow existing data in Cassandra to be analysed in R. Therefore, the available operations in this extension are to  
  
- - Load Cassandra partitions or whole tables
+ - Load Cassandra partitions or whole tables with server-side filtering and selecting 
  - Writes (updates) Cassandra tables
 
 ## Usage
