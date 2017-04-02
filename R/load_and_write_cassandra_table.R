@@ -2,7 +2,7 @@
 #'
 #' @name cassandra_tbl
 #'
-#' @param session The spark session
+#' @param sc The spark contextd
 #' @param cass_keyspace A Cassandra keyspace
 #' @param cass_tbl A Cassandra table/column family
 #' @param spk_tbl_name The variable name of the loaded table in hive
@@ -16,9 +16,9 @@ NULL
 #'
 #' @importFrom magrittr "%>%"
 #' @export
-spark_load_cassandra_table = function(session, cass_keyspace, cass_tbl, spk_tbl_name, partition_filter = FALSE, select_cols = FALSE, cache_table = FALSE) {
+spark_load_cassandra_table = function(sc, cass_keyspace, cass_tbl, spk_tbl_name, partition_filter = FALSE, select_cols = FALSE, cache_table = FALSE) {
   cass_df =
-    sparklyr::invoke(session, "read") %>%
+    sparklyr::invoke(spark_get_session(sc), "read") %>%
     sparklyr::invoke("format", "org.apache.spark.sql.cassandra") %>%
     sparklyr::invoke("option", "keyspace", cass_keyspace) %>%
     sparklyr::invoke("option", "table", cass_tbl) %>%
