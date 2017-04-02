@@ -15,22 +15,31 @@ library(sparklyr)
 library(dplyr)
 library(crassy)
 
+spark_install("2.0.2")
+
 sc <- spark_connect(
   master     = 'local', 
   spark_home = spark_home_dir()
 )
-
-spark_session = spark_get_session(sc)
 ```
 
 Load some table into spark
 
 ```
 spk_handle = crassy::spark_load_cassandra_table(
-  session       = spark_session,
+  session       = sc,
   cass_keyspace = "system_auth", 
   cass_tbl      = "roles", 
   spk_tbl_name  = "spk_tbl",
   select_cols   = c("role", "can_login")
 )
+```
+
+Write some table to Cassandra, assuming the table already exists
+
+```
+tbl_iris = copy_to(sc, iris, overwrite = TRUE)
+
+# Will throw an error if the table does not exist!
+crassy::spark_write_cassandra_table(tbl_iris, "test", "iris")
 ```
