@@ -29,6 +29,7 @@ test_that("write Spark DataFrame into Cassandra", {
 
   # Can't expect any keyspaces we can write to as no function to make or teardown keyspaces
   # For now, just check that it tried to look for the specified table to write to
+  # TODO: Add keyspace/table sync methods and update this
   testthat::expect_error(
     crassy::spark_write_cassandra_table(tbl_iris, "test", "iris"),
     regexp = "Couldn't find test.iris or any similarly named keyspace and table pairs"
