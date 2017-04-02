@@ -4,9 +4,11 @@ Version: 0.0.0.9000
 Authors@R: person("Akhil", "Nair", email = "yup.im.aki@gmail.com", role = c("aut", "cre"))
 Description: Connect R to Cassandra using the datastax Spark-Cassandra-Connector
 Depends:
-    R (>= 3.3.2),
+    R (>= 3.3.2)
+Imports:
     sparklyr,
-    magrittr
+    magrittr,
+    testthat
 License: MIT License
 Encoding: UTF-8
 LazyData: true
