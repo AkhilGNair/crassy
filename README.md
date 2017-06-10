@@ -17,9 +17,19 @@ library(crassy)
 
 spark_install("2.0.2")
 
+# Not the recommended way to handle config 
+# Better to put in working directory under config.yml
+# See http://spark.rstudio.com/deployment.html#configuration 
+# and https://github.com/rstudio/config
+
+config <- spark_config()
+config$sparklyr.defaultPackages = "com.datastax.spark:spark-cassandra-connector_2.11:2.0.0-M3"
+config$spark.cassandra.connection.host = 'localhost'
+
 sc <- spark_connect(
   master     = 'local', 
-  spark_home = spark_home_dir()
+  spark_home = spark_home_dir(),
+  config = config
 )
 ```
 
