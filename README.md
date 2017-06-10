@@ -27,7 +27,7 @@ Load some table into spark
 
 ```
 spk_handle = crassy::spark_load_cassandra_table(
-  session       = sc,
+  sc            = sc,
   cass_keyspace = "system_auth", 
   cass_tbl      = "roles", 
   spk_tbl_name  = "spk_tbl",
