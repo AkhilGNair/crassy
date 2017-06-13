@@ -32,6 +32,12 @@ You can also specify packages in the script using the `config` argument of `spar
 config <- spark_config()
 config$sparklyr.defaultPackages = "com.datastax.spark:spark-cassandra-connector_2.11:2.0.0-M3"
 config$spark.cassandra.connection.host = 'localhost'
+
+sc <- spark_connect(
+  master     = 'local', 
+  spark_home = spark_home_dir(),
+  config = config
+)
 ```
 
 #### Add jar to `spark_home`
@@ -39,7 +45,7 @@ Automatically load the package during every Spark Context by manually loading th
 ```
 wget http://dl.bintray.com/spark-packages/maven/datastax/spark-cassandra-connector/2.0.0-M2-s_2.11/spark-cassandra-connector-2.0.0-M2-s_2.11.jar
 ```
-In this case you must also ensure that your Scala version (2.10 or 2.11) matches.
+In this case you must also ensure that your Scala version (2.10 or 2.11) matches. Ensure there are no other Spark-Cassandra-Connector `jar` files in your `spark_home/jars` file.
 
 ## Usage
 
