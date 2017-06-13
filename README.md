@@ -11,7 +11,8 @@ This purpose of this library is to allow existing data in Cassandra to be analys
 Sparklyr automates much of the process of getting the connector loaded into the Spark Context. Simply ensure that you have the correct connector by cross-referencing this [compatibility table](https://github.com/datastax/spark-cassandra-connector#version-compatibility) with the [Spark-Cassandra-Connector package releases](https://spark-packages.org/package/datastax/spark-cassandra-connector) and choose one of the setup options below:
 
 #### config.yml (recommended)
-Create a file named `config.yml` in the R project working directory. Sparklyr will automatically use the packages specified in this file. An example is:
+Create a file named `config.yml` in the R project working directory. Sparklyr will automatically use the packages specified in this file. See http://spark.rstudio.com/deployment.html#configuration and https://github.com/rstudio/config. 
+An example is:
 ```
 default:
   # local-only configuration
@@ -50,11 +51,6 @@ library(dplyr)
 library(crassy)
 
 spark_install("2.0.2")
-
-# Not the recommended way to handle config 
-# Better to put in working directory under config.yml
-# See http://spark.rstudio.com/deployment.html#configuration 
-# and https://github.com/rstudio/config
 
 sc <- spark_connect(
   master     = 'local', 
