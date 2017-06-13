@@ -6,6 +6,40 @@ This purpose of this library is to allow existing data in Cassandra to be analys
  - Load Cassandra partitions or whole tables with server-side filtering and selecting 
  - Writes (updates) Cassandra tables
 
+## Setup
+
+Sparklyr automates much of the process of getting the connector loaded into the Spark Context. Simply ensure that you have the correct connector by cross-referencing this [compatibility table](https://github.com/datastax/spark-cassandra-connector#version-compatibility) with the [Spark-Cassandra-Connector package releases](https://spark-packages.org/package/datastax/spark-cassandra-connector) and choose one of the setup options below:
+
+#### config.yml (recommended)
+Create a file named `config.yml` in the R project working directory. Sparklyr will automatically use the packages specified in this file. An example is:
+```
+default:
+  # local-only configuration
+  spark.cassandra.connection.host: <your_cassandra_host_name>
+
+  # default spark packages to load
+  # match connector version to spark version
+  sparklyr.defaultPackages:
+    - com.datastax.spark:spark-cassandra-connector_2.11:2.0.0-M3
+```
+In addition, any other configuration options may be added here as well. Find a template in the Sparklyr package directory somewhere like: 
+`~/R/x86_64-pc-linux-gnu-library/<R_VERSION>/sparklyr/conf/config-template.yml`
+
+#### Call in script
+You can also specify packages in the script using the `config` argument of `spark_connect` as such:
+```
+config <- spark_config()
+config$sparklyr.defaultPackages = "com.datastax.spark:spark-cassandra-connector_2.11:2.0.0-M3"
+config$spark.cassandra.connection.host = 'localhost'
+```
+
+#### Add jar to `spark_home`
+Automatically load the package during every Spark Context by manually loading the associated `jar` file of your compatible package into your`spark_home/jars` directory. You may also use `wget` from your `jars` dir as such:
+```
+wget http://dl.bintray.com/spark-packages/maven/datastax/spark-cassandra-connector/2.0.0-M2-s_2.11/spark-cassandra-connector-2.0.0-M2-s_2.11.jar
+```
+In this case you must also ensure that your Scala version (2.10 or 2.11) matches.
+
 ## Usage
 
 Connect to a spark cluster and get the session
@@ -22,14 +56,9 @@ spark_install("2.0.2")
 # See http://spark.rstudio.com/deployment.html#configuration 
 # and https://github.com/rstudio/config
 
-config <- spark_config()
-config$sparklyr.defaultPackages = "com.datastax.spark:spark-cassandra-connector_2.11:2.0.0-M3"
-config$spark.cassandra.connection.host = 'localhost'
-
 sc <- spark_connect(
   master     = 'local', 
-  spark_home = spark_home_dir(),
-  config = config
+  spark_home = spark_home_dir()
 )
 ```
 
