@@ -1,6 +1,6 @@
 Package: crassy
 Title: Connection methods from R to Cassandra
-Version: 0.0.0.9000
+Version: 1.1.0
 Authors@R: person("Akhil", "Nair", email = "yup.im.aki@gmail.com", role = c("aut", "cre"))
 Description: Connect R to Cassandra using the datastax Spark-Cassandra-Connector
 Depends:
