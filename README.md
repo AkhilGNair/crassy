@@ -56,11 +56,9 @@ crassy::spark_write_cassandra_table(tbl_iris, "test", "iris")
 
 ### Note
 
-For my use case - analysis on partitions, or sections of partitions - I have found this to be just enough functionality to be workable, and use this code in production. 
+Writing Scala extensions for Sparklyr exposes all functions of the `Spark-Cassandra-Connector` which is extremely powerful. Please refer to https://github.com/AkhilNairAmey/CQLConnect to see how I have:
+ - Submitted raw CQL to the cluster from R
+ - Used the `cassandraTable` convenience function provided by the `Spark-Cassandra-Connecter` via R
+ - Used `joinWithCassandraTable` to fetch a table of 500+ specific partitions from a table, and manipulate the result natively in R 
 
-The other use case I've found I needed is where I need to search for a particular row in a Cassandra table, which doesn't need to overhead of passing the data to Spark. For an example of how submitting raw CQL to the cluster can be done through R, please refer to this library - https://github.com/AkhilNairAmey/CQLConnect.
-
-Unfortunately the library is very specific to my use case, as I believe to make a more generic package would involve some fairly heavy duty Scala introspective techniques, and I'm just not there yet.  If you have any ideas how this could be achieved, please feel free to open an issue, or find me at akhil.nair@amey.co.uk
-
-Thanks,
-Akhil
+If any of these are particularly useful, please let me know via and issue, and I will try to continue development.
