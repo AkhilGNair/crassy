@@ -16,7 +16,11 @@ NULL
 #'
 #' @importFrom magrittr "%>%"
 #' @export
-spark_load_cassandra_table = function(sc, cass_keyspace, cass_tbl, spk_tbl_name, partition_filter = FALSE, select_cols = FALSE, cache_table = FALSE) {
+spark_load_cassandra_table = function(sc, cass_keyspace, cass_tbl, spk_tbl_name, 
+                                      partition_filter = FALSE, 
+                                      select_cols = FALSE, 
+                                      limit = FALSE, 
+                                      cache_table = FALSE) {
   cass_df =
     sparklyr::invoke(spark_get_session(sc), "read") %>%
     sparklyr::invoke("format", "org.apache.spark.sql.cassandra") %>%
@@ -36,6 +40,11 @@ spark_load_cassandra_table = function(sc, cass_keyspace, cass_tbl, spk_tbl_name,
       cass_df = cass_df %>%
         sparklyr::invoke("select", select_cols[[1]], as.list(select_cols[2:length(select_cols)]))
     }
+  }
+  
+  if(is.numeric(limit)) {
+    cass_df = cass_df %>%
+      sparklyr::invoke("limit", limit)
   }
 
   spark_tbl = sparklyr:::spark_partition_register_df(sc, cass_df, spk_tbl_name, 0, cache_table)
